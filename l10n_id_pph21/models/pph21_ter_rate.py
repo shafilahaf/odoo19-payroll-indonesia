@@ -34,17 +34,20 @@ class Pph21TerRate(models.Model):
         if not company:
             company = self.env.company
         
+        # Accept records either belonging to current company or with no company
+        # (loaded from XML data without company_id set)
         domain = [
             ('category_id.code', '=', category_code),
             ('range_from', '<=', gross_amount),
-            ('company_id', '=', company.id),
+            '|', ('company_id', '=', company.id), ('company_id', '=', False),
         ]
         
-        rates = self.search(domain, order='range_from desc', limit=1)
+        # Filter by upper bound too: either range_to = 0 (unlimited)
+        # or gross_amount <= range_to
+        rates = self.search(domain, order='range_from desc')
         
-        if rates:
-            # Verify it's within upper bound (0 means unlimited)
-            if rates.range_to == 0 or gross_amount <= rates.range_to:
-                return rates.rate
+        for rate_line in rates:
+            if rate_line.range_to == 0 or gross_amount <= rate_line.range_to:
+                return rate_line.rate
         
         return 0.0
