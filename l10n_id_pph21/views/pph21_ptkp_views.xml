@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- PTKP Tree View -->
+    <record id="pph21_ptkp_view_tree" model="ir.ui.view">
+        <field name="name">pph21.ptkp.tree</field>
+        <field name="model">pph21.ptkp</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="code"/>
+                <field name="name"/>
+                <field name="marital_status"/>
+                <field name="dependents"/>
+                <field name="annual_amount" widget="monetary"/>
+                <field name="monthly_amount" widget="monetary"/>
+                <field name="ter_category_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- PTKP Form View -->
+    <record id="pph21_ptkp_view_form" model="ir.ui.view">
+        <field name="name">pph21.ptkp.form</field>
+        <field name="model">pph21.ptkp</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code"/>
+                            <field name="marital_status"/>
+                            <field name="dependents"/>
+                        </group>
+                        <group>
+                            <field name="annual_amount"/>
+                            <field name="monthly_amount"/>
+                            <field name="ter_category_id"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- PTKP Action -->
+    <record id="action_pph21_ptkp" model="ir.actions.act_window">
+        <field name="name">PTKP Status</field>
+        <field name="res_model">pph21.ptkp</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a PTKP Status
+            </p>
+            <p>
+                PTKP (Penghasilan Tidak Kena Pajak) is the non-taxable income threshold 
+                based on marital status and number of dependents.
+            </p>
+        </field>
+    </record>
+
+</odoo>

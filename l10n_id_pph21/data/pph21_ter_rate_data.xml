@@ -1,0 +1,762 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- ============================================ -->
+        <!-- TER CATEGORY A RATES (TK/0, TK/1, K/0)      -->
+        <!-- Based on PP 58/2023 & PMK 168/2023           -->
+        <!-- ============================================ -->
+
+        <record id="ter_a_01" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">0</field>
+            <field name="range_to">5400000</field>
+            <field name="rate">0</field>
+        </record>
+        <record id="ter_a_02" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">5400001</field>
+            <field name="range_to">5650000</field>
+            <field name="rate">0.25</field>
+        </record>
+        <record id="ter_a_03" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">5650001</field>
+            <field name="range_to">5950000</field>
+            <field name="rate">0.5</field>
+        </record>
+        <record id="ter_a_04" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">5950001</field>
+            <field name="range_to">6300000</field>
+            <field name="rate">0.75</field>
+        </record>
+        <record id="ter_a_05" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">6300001</field>
+            <field name="range_to">6750000</field>
+            <field name="rate">1</field>
+        </record>
+        <record id="ter_a_06" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">6750001</field>
+            <field name="range_to">7500000</field>
+            <field name="rate">1.25</field>
+        </record>
+        <record id="ter_a_07" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">7500001</field>
+            <field name="range_to">8550000</field>
+            <field name="rate">1.5</field>
+        </record>
+        <record id="ter_a_08" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">8550001</field>
+            <field name="range_to">9650000</field>
+            <field name="rate">1.75</field>
+        </record>
+        <record id="ter_a_09" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">9650001</field>
+            <field name="range_to">10050000</field>
+            <field name="rate">2</field>
+        </record>
+        <record id="ter_a_10" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">10050001</field>
+            <field name="range_to">10350000</field>
+            <field name="rate">2.25</field>
+        </record>
+        <record id="ter_a_11" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">10350001</field>
+            <field name="range_to">10700000</field>
+            <field name="rate">2.5</field>
+        </record>
+        <record id="ter_a_12" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">10700001</field>
+            <field name="range_to">11050000</field>
+            <field name="rate">3</field>
+        </record>
+        <record id="ter_a_13" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">11050001</field>
+            <field name="range_to">11600000</field>
+            <field name="rate">3.5</field>
+        </record>
+        <record id="ter_a_14" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">11600001</field>
+            <field name="range_to">12500000</field>
+            <field name="rate">4</field>
+        </record>
+        <record id="ter_a_15" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">12500001</field>
+            <field name="range_to">13750000</field>
+            <field name="rate">4.5</field>
+        </record>
+        <record id="ter_a_16" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">13750001</field>
+            <field name="range_to">15100000</field>
+            <field name="rate">5</field>
+        </record>
+        <record id="ter_a_17" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">15100001</field>
+            <field name="range_to">16950000</field>
+            <field name="rate">5.5</field>
+        </record>
+        <record id="ter_a_18" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">16950001</field>
+            <field name="range_to">19750000</field>
+            <field name="rate">6</field>
+        </record>
+        <record id="ter_a_19" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">19750001</field>
+            <field name="range_to">24150000</field>
+            <field name="rate">7</field>
+        </record>
+        <record id="ter_a_20" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">24150001</field>
+            <field name="range_to">26450000</field>
+            <field name="rate">7.5</field>
+        </record>
+        <record id="ter_a_21" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">26450001</field>
+            <field name="range_to">28000000</field>
+            <field name="rate">8</field>
+        </record>
+        <record id="ter_a_22" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">28000001</field>
+            <field name="range_to">30050000</field>
+            <field name="rate">8.5</field>
+        </record>
+        <record id="ter_a_23" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">30050001</field>
+            <field name="range_to">32400000</field>
+            <field name="rate">9</field>
+        </record>
+        <record id="ter_a_24" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">32400001</field>
+            <field name="range_to">35400000</field>
+            <field name="rate">9.5</field>
+        </record>
+        <record id="ter_a_25" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">35400001</field>
+            <field name="range_to">39100000</field>
+            <field name="rate">10</field>
+        </record>
+        <record id="ter_a_26" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">39100001</field>
+            <field name="range_to">43850000</field>
+            <field name="rate">10.5</field>
+        </record>
+        <record id="ter_a_27" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">43850001</field>
+            <field name="range_to">47800000</field>
+            <field name="rate">11</field>
+        </record>
+        <record id="ter_a_28" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">47800001</field>
+            <field name="range_to">51400000</field>
+            <field name="rate">11.5</field>
+        </record>
+        <record id="ter_a_29" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">51400001</field>
+            <field name="range_to">56300000</field>
+            <field name="rate">12</field>
+        </record>
+        <record id="ter_a_30" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">56300001</field>
+            <field name="range_to">62200000</field>
+            <field name="rate">12.5</field>
+        </record>
+        <record id="ter_a_31" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">62200001</field>
+            <field name="range_to">68600000</field>
+            <field name="rate">13</field>
+        </record>
+        <record id="ter_a_32" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">68600001</field>
+            <field name="range_to">77500000</field>
+            <field name="rate">13.5</field>
+        </record>
+        <record id="ter_a_33" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">77500001</field>
+            <field name="range_to">89000000</field>
+            <field name="rate">14</field>
+        </record>
+        <record id="ter_a_34" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">89000001</field>
+            <field name="range_to">103000000</field>
+            <field name="rate">14.5</field>
+        </record>
+        <record id="ter_a_35" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">103000001</field>
+            <field name="range_to">125000000</field>
+            <field name="rate">15</field>
+        </record>
+        <record id="ter_a_36" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">125000001</field>
+            <field name="range_to">157000000</field>
+            <field name="rate">16</field>
+        </record>
+        <record id="ter_a_37" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">157000001</field>
+            <field name="range_to">206000000</field>
+            <field name="rate">17</field>
+        </record>
+        <record id="ter_a_38" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">206000001</field>
+            <field name="range_to">337000000</field>
+            <field name="rate">18</field>
+        </record>
+        <record id="ter_a_39" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">337000001</field>
+            <field name="range_to">454000000</field>
+            <field name="rate">19</field>
+        </record>
+        <record id="ter_a_40" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">454000001</field>
+            <field name="range_to">550000000</field>
+            <field name="rate">20</field>
+        </record>
+        <record id="ter_a_41" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">550000001</field>
+            <field name="range_to">695000000</field>
+            <field name="rate">21</field>
+        </record>
+        <record id="ter_a_42" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">695000001</field>
+            <field name="range_to">910000000</field>
+            <field name="rate">22</field>
+        </record>
+        <record id="ter_a_43" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">910000001</field>
+            <field name="range_to">1400000000</field>
+            <field name="rate">23</field>
+        </record>
+        <record id="ter_a_44" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_a"/>
+            <field name="range_from">1400000001</field>
+            <field name="range_to">0</field>
+            <field name="rate">34</field>
+        </record>
+
+        <!-- ============================================ -->
+        <!-- TER CATEGORY B RATES (TK/2, TK/3, K/1, K/2) -->
+        <!-- Based on PP 58/2023 & PMK 168/2023           -->
+        <!-- ============================================ -->
+
+        <record id="ter_b_01" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">0</field>
+            <field name="range_to">6200000</field>
+            <field name="rate">0</field>
+        </record>
+        <record id="ter_b_02" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">6200001</field>
+            <field name="range_to">6500000</field>
+            <field name="rate">0.25</field>
+        </record>
+        <record id="ter_b_03" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">6500001</field>
+            <field name="range_to">6850000</field>
+            <field name="rate">0.5</field>
+        </record>
+        <record id="ter_b_04" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">6850001</field>
+            <field name="range_to">7300000</field>
+            <field name="rate">0.75</field>
+        </record>
+        <record id="ter_b_05" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">7300001</field>
+            <field name="range_to">9200000</field>
+            <field name="rate">1</field>
+        </record>
+        <record id="ter_b_06" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">9200001</field>
+            <field name="range_to">10750000</field>
+            <field name="rate">1.5</field>
+        </record>
+        <record id="ter_b_07" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">10750001</field>
+            <field name="range_to">11250000</field>
+            <field name="rate">2</field>
+        </record>
+        <record id="ter_b_08" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">11250001</field>
+            <field name="range_to">11600000</field>
+            <field name="rate">2.5</field>
+        </record>
+        <record id="ter_b_09" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">11600001</field>
+            <field name="range_to">12500000</field>
+            <field name="rate">3</field>
+        </record>
+        <record id="ter_b_10" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">12500001</field>
+            <field name="range_to">13750000</field>
+            <field name="rate">4</field>
+        </record>
+        <record id="ter_b_11" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">13750001</field>
+            <field name="range_to">15100000</field>
+            <field name="rate">4.5</field>
+        </record>
+        <record id="ter_b_12" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">15100001</field>
+            <field name="range_to">16950000</field>
+            <field name="rate">5</field>
+        </record>
+        <record id="ter_b_13" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">16950001</field>
+            <field name="range_to">19750000</field>
+            <field name="rate">5.5</field>
+        </record>
+        <record id="ter_b_14" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">19750001</field>
+            <field name="range_to">24150000</field>
+            <field name="rate">6</field>
+        </record>
+        <record id="ter_b_15" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">24150001</field>
+            <field name="range_to">26450000</field>
+            <field name="rate">7</field>
+        </record>
+        <record id="ter_b_16" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">26450001</field>
+            <field name="range_to">28000000</field>
+            <field name="rate">7.5</field>
+        </record>
+        <record id="ter_b_17" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">28000001</field>
+            <field name="range_to">30050000</field>
+            <field name="rate">8</field>
+        </record>
+        <record id="ter_b_18" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">30050001</field>
+            <field name="range_to">32400000</field>
+            <field name="rate">8.5</field>
+        </record>
+        <record id="ter_b_19" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">32400001</field>
+            <field name="range_to">35400000</field>
+            <field name="rate">9</field>
+        </record>
+        <record id="ter_b_20" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">35400001</field>
+            <field name="range_to">39100000</field>
+            <field name="rate">9.5</field>
+        </record>
+        <record id="ter_b_21" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">39100001</field>
+            <field name="range_to">43850000</field>
+            <field name="rate">10</field>
+        </record>
+        <record id="ter_b_22" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">43850001</field>
+            <field name="range_to">47800000</field>
+            <field name="rate">10.5</field>
+        </record>
+        <record id="ter_b_23" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">47800001</field>
+            <field name="range_to">51400000</field>
+            <field name="rate">11</field>
+        </record>
+        <record id="ter_b_24" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">51400001</field>
+            <field name="range_to">56300000</field>
+            <field name="rate">11.5</field>
+        </record>
+        <record id="ter_b_25" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">56300001</field>
+            <field name="range_to">62200000</field>
+            <field name="rate">12</field>
+        </record>
+        <record id="ter_b_26" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">62200001</field>
+            <field name="range_to">68600000</field>
+            <field name="rate">12.5</field>
+        </record>
+        <record id="ter_b_27" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">68600001</field>
+            <field name="range_to">77500000</field>
+            <field name="rate">13</field>
+        </record>
+        <record id="ter_b_28" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">77500001</field>
+            <field name="range_to">89000000</field>
+            <field name="rate">13.5</field>
+        </record>
+        <record id="ter_b_29" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">89000001</field>
+            <field name="range_to">103000000</field>
+            <field name="rate">14</field>
+        </record>
+        <record id="ter_b_30" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">103000001</field>
+            <field name="range_to">125000000</field>
+            <field name="rate">14.5</field>
+        </record>
+        <record id="ter_b_31" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">125000001</field>
+            <field name="range_to">157000000</field>
+            <field name="rate">15</field>
+        </record>
+        <record id="ter_b_32" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">157000001</field>
+            <field name="range_to">206000000</field>
+            <field name="rate">16</field>
+        </record>
+        <record id="ter_b_33" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">206000001</field>
+            <field name="range_to">337000000</field>
+            <field name="rate">17</field>
+        </record>
+        <record id="ter_b_34" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">337000001</field>
+            <field name="range_to">454000000</field>
+            <field name="rate">18</field>
+        </record>
+        <record id="ter_b_35" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">454000001</field>
+            <field name="range_to">550000000</field>
+            <field name="rate">19</field>
+        </record>
+        <record id="ter_b_36" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">550000001</field>
+            <field name="range_to">695000000</field>
+            <field name="rate">20</field>
+        </record>
+        <record id="ter_b_37" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">695000001</field>
+            <field name="range_to">910000000</field>
+            <field name="rate">21</field>
+        </record>
+        <record id="ter_b_38" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">910000001</field>
+            <field name="range_to">1400000000</field>
+            <field name="rate">22</field>
+        </record>
+        <record id="ter_b_39" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_b"/>
+            <field name="range_from">1400000001</field>
+            <field name="range_to">0</field>
+            <field name="rate">33</field>
+        </record>
+
+        <!-- ============================================ -->
+        <!-- TER CATEGORY C RATES (K/3)                   -->
+        <!-- Based on PP 58/2023 & PMK 168/2023           -->
+        <!-- ============================================ -->
+
+        <record id="ter_c_01" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">0</field>
+            <field name="range_to">6600000</field>
+            <field name="rate">0</field>
+        </record>
+        <record id="ter_c_02" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">6600001</field>
+            <field name="range_to">6950000</field>
+            <field name="rate">0.25</field>
+        </record>
+        <record id="ter_c_03" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">6950001</field>
+            <field name="range_to">7350000</field>
+            <field name="rate">0.5</field>
+        </record>
+        <record id="ter_c_04" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">7350001</field>
+            <field name="range_to">7800000</field>
+            <field name="rate">0.75</field>
+        </record>
+        <record id="ter_c_05" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">7800001</field>
+            <field name="range_to">8850000</field>
+            <field name="rate">1</field>
+        </record>
+        <record id="ter_c_06" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">8850001</field>
+            <field name="range_to">9800000</field>
+            <field name="rate">1.25</field>
+        </record>
+        <record id="ter_c_07" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">9800001</field>
+            <field name="range_to">10950000</field>
+            <field name="rate">1.5</field>
+        </record>
+        <record id="ter_c_08" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">10950001</field>
+            <field name="range_to">11200000</field>
+            <field name="rate">1.75</field>
+        </record>
+        <record id="ter_c_09" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">11200001</field>
+            <field name="range_to">12050000</field>
+            <field name="rate">2</field>
+        </record>
+        <record id="ter_c_10" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">12050001</field>
+            <field name="range_to">12950000</field>
+            <field name="rate">3</field>
+        </record>
+        <record id="ter_c_11" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">12950001</field>
+            <field name="range_to">14150000</field>
+            <field name="rate">3.5</field>
+        </record>
+        <record id="ter_c_12" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">14150001</field>
+            <field name="range_to">15550000</field>
+            <field name="rate">4</field>
+        </record>
+        <record id="ter_c_13" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">15550001</field>
+            <field name="range_to">17050000</field>
+            <field name="rate">4.5</field>
+        </record>
+        <record id="ter_c_14" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">17050001</field>
+            <field name="range_to">19500000</field>
+            <field name="rate">5</field>
+        </record>
+        <record id="ter_c_15" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">19500001</field>
+            <field name="range_to">22700000</field>
+            <field name="rate">5.5</field>
+        </record>
+        <record id="ter_c_16" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">22700001</field>
+            <field name="range_to">26600000</field>
+            <field name="rate">6</field>
+        </record>
+        <record id="ter_c_17" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">26600001</field>
+            <field name="range_to">28100000</field>
+            <field name="rate">7</field>
+        </record>
+        <record id="ter_c_18" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">28100001</field>
+            <field name="range_to">30100000</field>
+            <field name="rate">7.5</field>
+        </record>
+        <record id="ter_c_19" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">30100001</field>
+            <field name="range_to">32600000</field>
+            <field name="rate">8</field>
+        </record>
+        <record id="ter_c_20" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">32600001</field>
+            <field name="range_to">35400000</field>
+            <field name="rate">8.5</field>
+        </record>
+        <record id="ter_c_21" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">35400001</field>
+            <field name="range_to">38900000</field>
+            <field name="rate">9</field>
+        </record>
+        <record id="ter_c_22" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">38900001</field>
+            <field name="range_to">43000000</field>
+            <field name="rate">9.5</field>
+        </record>
+        <record id="ter_c_23" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">43000001</field>
+            <field name="range_to">47400000</field>
+            <field name="rate">10</field>
+        </record>
+        <record id="ter_c_24" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">47400001</field>
+            <field name="range_to">51200000</field>
+            <field name="rate">10.5</field>
+        </record>
+        <record id="ter_c_25" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">51200001</field>
+            <field name="range_to">55800000</field>
+            <field name="rate">11</field>
+        </record>
+        <record id="ter_c_26" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">55800001</field>
+            <field name="range_to">62000000</field>
+            <field name="rate">11.5</field>
+        </record>
+        <record id="ter_c_27" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">62000001</field>
+            <field name="range_to">68600000</field>
+            <field name="rate">12</field>
+        </record>
+        <record id="ter_c_28" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">68600001</field>
+            <field name="range_to">77500000</field>
+            <field name="rate">12.5</field>
+        </record>
+        <record id="ter_c_29" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">77500001</field>
+            <field name="range_to">89000000</field>
+            <field name="rate">13</field>
+        </record>
+        <record id="ter_c_30" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">89000001</field>
+            <field name="range_to">103000000</field>
+            <field name="rate">13.5</field>
+        </record>
+        <record id="ter_c_31" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">103000001</field>
+            <field name="range_to">125000000</field>
+            <field name="rate">14</field>
+        </record>
+        <record id="ter_c_32" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">125000001</field>
+            <field name="range_to">157000000</field>
+            <field name="rate">15</field>
+        </record>
+        <record id="ter_c_33" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">157000001</field>
+            <field name="range_to">206000000</field>
+            <field name="rate">16</field>
+        </record>
+        <record id="ter_c_34" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">206000001</field>
+            <field name="range_to">337000000</field>
+            <field name="rate">17</field>
+        </record>
+        <record id="ter_c_35" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">337000001</field>
+            <field name="range_to">454000000</field>
+            <field name="rate">18</field>
+        </record>
+        <record id="ter_c_36" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">454000001</field>
+            <field name="range_to">550000000</field>
+            <field name="rate">19</field>
+        </record>
+        <record id="ter_c_37" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">550000001</field>
+            <field name="range_to">695000000</field>
+            <field name="rate">20</field>
+        </record>
+        <record id="ter_c_38" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">695000001</field>
+            <field name="range_to">910000000</field>
+            <field name="rate">21</field>
+        </record>
+        <record id="ter_c_39" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">910000001</field>
+            <field name="range_to">1400000000</field>
+            <field name="rate">22</field>
+        </record>
+        <record id="ter_c_40" model="pph21.ter.rate">
+            <field name="category_id" ref="ter_category_c"/>
+            <field name="range_from">1400000001</field>
+            <field name="range_to">0</field>
+            <field name="rate">32</field>
+        </record>
+
+    </data>
+</odoo>

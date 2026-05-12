@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Payslip Form View Extension -->
+    <record id="hr_payslip_view_form_pph21" model="ir.ui.view">
+        <field name="name">hr.payslip.form.pph21</field>
+        <field name="model">hr.payslip</field>
+        <field name="inherit_id" ref="hr_payroll.view_hr_payslip_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="PPh 21 Info" name="pph21_info">
+                    <group>
+                        <group string="Calculation Details">
+                            <field name="pph21_method_used"/>
+                            <field name="pph21_is_final_period"/>
+                            <field name="pph21_ter_rate_applied"
+                                   invisible="pph21_method_used != 'ter'"/>
+                        </group>
+                        <group string="Amounts">
+                            <field name="pph21_gross_annual"
+                                   invisible="pph21_method_used != 'progressive'"/>
+                            <field name="pph21_tax_amount"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
