@@ -62,8 +62,8 @@ class HrPayslip(models.Model):
         if has_basic_alw:
             return basic_alw_total
         # Fallback to contract wage when lines not yet computed
-        if self.contract_id:
-            return self.contract_id.wage
+        if self.version_id:
+            return self.version_id.wage
         return 0.0
 
     def _get_pph21_annual_gross(self, current_month_gross=0):

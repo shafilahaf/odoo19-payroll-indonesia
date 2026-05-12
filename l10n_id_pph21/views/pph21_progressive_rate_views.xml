@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- Progressive Rate Tree View -->
-    <record id="pph21_progressive_rate_view_tree" model="ir.ui.view">
-        <field name="name">pph21.progressive.rate.tree</field>
+    <!-- Progressive Rate list View -->
+    <record id="pph21_progressive_rate_view_list" model="ir.ui.view">
+        <field name="name">pph21.progressive.rate.list</field>
         <field name="model">pph21.progressive.rate</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="sequence" widget="handle"/>
                 <field name="name"/>
                 <field name="range_from"/>
                 <field name="range_to"/>
                 <field name="rate"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -44,7 +44,7 @@
     <record id="action_pph21_progressive_rate" model="ir.actions.act_window">
         <field name="name">Progressive Tax Rates</field>
         <field name="res_model">pph21.progressive.rate</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a Progressive Tax Rate

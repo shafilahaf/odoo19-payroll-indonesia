@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-    <!-- PTKP Tree View -->
-    <record id="pph21_ptkp_view_tree" model="ir.ui.view">
-        <field name="name">pph21.ptkp.tree</field>
+    <!-- PTKP list View -->
+    <record id="pph21_ptkp_view_list" model="ir.ui.view">
+        <field name="name">pph21.ptkp.list</field>
         <field name="model">pph21.ptkp</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="code"/>
                 <field name="name"/>
                 <field name="marital_status"/>
@@ -14,7 +14,7 @@
                 <field name="annual_amount" widget="monetary"/>
                 <field name="monthly_amount" widget="monetary"/>
                 <field name="ter_category_id"/>
-            </tree>
+            </list>
         </field>
     </record>
 
@@ -48,7 +48,7 @@
     <record id="action_pph21_ptkp" model="ir.actions.act_window">
         <field name="name">PTKP Status</field>
         <field name="res_model">pph21.ptkp</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a PTKP Status
