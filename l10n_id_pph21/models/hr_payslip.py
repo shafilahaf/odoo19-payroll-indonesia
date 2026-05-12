@@ -34,14 +34,25 @@ class HrPayslip(models.Model):
 
     def _get_pph21_monthly_gross(self):
         """Get the monthly gross income for PPh 21 calculation.
+        
+        Priority:
+        1. If a GROSS category line exists -> use it (already sums BASIC + ALW)
+        2. Otherwise fall back to BASIC + ALW to avoid double counting
+        
         Override this method to customize which salary components are included.
         """
         self.ensure_one()
-        gross = 0.0
+        gross_line_total = 0.0
+        basic_alw_total = 0.0
+        has_gross = False
         for line in self.line_ids:
-            if line.category_id.code in ('BASIC', 'ALW', 'GROSS'):
-                gross += line.total
-        return gross
+            code = line.category_id.code if line.category_id else ''
+            if code == 'GROSS':
+                gross_line_total += line.total
+                has_gross = True
+            elif code in ('BASIC', 'ALW'):
+                basic_alw_total += line.total
+        return gross_line_total if has_gross else basic_alw_total
 
     def _get_pph21_annual_gross(self, current_month_gross=0):
         """Calculate annualized gross income.
