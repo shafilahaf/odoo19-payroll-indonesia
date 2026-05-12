@@ -1,7 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_l10n_id_payroll_settings_user,l10n_id.payroll.settings user,model_l10n_id_payroll_settings,hr.group_hr_user,1,0,0,0
-access_l10n_id_payroll_settings_manager,l10n_id.payroll.settings manager,model_l10n_id_payroll_settings,hr.group_hr_manager,1,1,1,1
-access_l10n_id_payroll_structure_user,l10n_id.payroll.structure user,model_l10n_id_payroll_structure,hr.group_hr_user,1,0,0,0
-access_l10n_id_payroll_structure_manager,l10n_id.payroll.structure manager,model_l10n_id_payroll_structure,hr.group_hr_manager,1,1,1,1
-access_l10n_id_payroll_rule_user,l10n_id.payroll.rule user,model_l10n_id_payroll_rule,hr.group_hr_user,1,0,0,0
-access_l10n_id_payroll_rule_manager,l10n_id.payroll.rule manager,model_l10n_id_payroll_rule,hr.group_hr_manager,1,1,1,1
