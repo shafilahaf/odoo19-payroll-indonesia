@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Contract (hr.version) Form View Extension -->
+    <record id="hr_version_view_form_pph21" model="ir.ui.view">
+        <field name="name">hr.version.form.pph21</field>
+        <field name="model">hr.version</field>
+        <field name="inherit_id" ref="hr.hr_version_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="PPh 21 Tax" name="pph21_tax">
+                    <group>
+                        <field name="pph21_use_contract_config"
+                               widget="boolean_toggle"
+                               help="If unchecked, PPh 21 will use values from the Employee record."/>
+                    </group>
+                    <group invisible="not pph21_use_contract_config">
+                        <group string="Tax Identity (Contract)">
+                            <field name="pph21_npwp"/>
+                            <field name="pph21_has_npwp"/>
+                            <field name="pph21_employment_type"/>
+                        </group>
+                        <group string="Tax Configuration (Contract)">
+                            <field name="pph21_ptkp_id"/>
+                            <field name="pph21_ter_category_id"/>
+                            <field name="pph21_calculation_method"/>
+                        </group>
+                    </group>
+                    <group invisible="pph21_use_contract_config">
+                        <div class="alert alert-info" role="alert" colspan="2">
+                            PPh 21 configuration is currently read from the
+                            <strong>Employee record</strong>. Enable
+                            "Override PPh 21 from Contract" above to configure
+                            per-contract tax settings.
+                        </div>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

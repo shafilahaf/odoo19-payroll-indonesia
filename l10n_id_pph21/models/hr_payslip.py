@@ -17,6 +17,11 @@ class HrPayslip(models.Model):
     pph21_gross_annual = fields.Float(string='Gross Annual (Calculated)', readonly=True, copy=False)
     pph21_tax_amount = fields.Float(string='PPh 21 Amount', readonly=True, copy=False)
     pph21_ter_rate_applied = fields.Float(string='TER Rate Applied (%)', readonly=True, copy=False)
+    pph21_config_source = fields.Selection([
+        ('employee', 'Employee'),
+        ('contract', 'Contract'),
+    ], string='PPh 21 Config Source', readonly=True, copy=False,
+       help='Where the PPh 21 configuration was read from for this payslip.')
 
     @api.depends('date_from', 'date_to', 'employee_id', 'employee_id.pph21_resign_date')
     def _compute_pph21_is_final_period(self):
@@ -32,16 +37,45 @@ class HrPayslip(models.Model):
                     is_final = True
             payslip.pph21_is_final_period = is_final
 
+    # ------------------------------------------------------------------
+    # PPh 21 configuration resolution (contract overrides employee)
+    # ------------------------------------------------------------------
+    def _get_pph21_config(self):
+        """Resolve the PPh 21 configuration for this payslip.
+
+        Priority:
+        1. If the contract (hr.version) on this payslip has
+           `pph21_use_contract_config` enabled -> use contract values.
+        2. Otherwise fall back to employee-level fields.
+
+        Returns a dict with keys:
+            ptkp_id, ter_category_id, calculation_method,
+            employment_type, has_npwp, npwp, source
+        """
+        self.ensure_one()
+        if self.version_id:
+            return self.version_id._get_pph21_config()
+
+        # Last-resort fallback if no contract (unlikely)
+        employee = self.employee_id
+        return {
+            'ptkp_id': employee.pph21_ptkp_id,
+            'ter_category_id': employee.pph21_ter_category_id,
+            'calculation_method': employee.pph21_calculation_method,
+            'employment_type': employee.pph21_employment_type,
+            'has_npwp': employee.pph21_has_npwp,
+            'npwp': employee.pph21_npwp,
+            'source': 'employee',
+        }
+
     def _get_pph21_monthly_gross(self):
         """Get the monthly gross income for PPh 21 calculation.
-        
+
         Priority:
         1. If GROSS category line exists in computed lines -> use it
         2. Sum BASIC + ALW lines if they exist
         3. Fall back to contract.wage (when called during compute, lines
            may not be persisted yet)
-        
-        Override this method to customize which salary components are included.
         """
         self.ensure_one()
         gross_line_total = 0.0
@@ -84,9 +118,7 @@ class HrPayslip(models.Model):
         ])
 
     def _get_pph21_annual_gross(self, current_month_gross=0):
-        """Calculate annualized gross income.
-        For final period calculation, we need all months in the year.
-        """
+        """Calculate annualized gross income across the current tax year."""
         self.ensure_one()
         prev_payslips = self._get_pph21_previous_payslips()
 
@@ -97,175 +129,120 @@ class HrPayslip(models.Model):
         return annual_gross
 
     def _get_pph21_total_ter_paid(self):
-        """Get total PPh 21 already paid via TER in previous months of same year."""
+        """Get total PPh 21 already paid in previous months of same year."""
         self.ensure_one()
         prev_payslips = self._get_pph21_previous_payslips()
-        total_paid = sum(slip.pph21_tax_amount for slip in prev_payslips)
-        return total_paid
+        return sum(slip.pph21_tax_amount for slip in prev_payslips)
 
     def _get_working_months_in_year(self):
         """Get number of working months in the year for this employee."""
         self.ensure_one()
         employee = self.employee_id
         year = self.date_from.year
-        
-        # Determine start month
+
         start_month = 1
         if employee.pph21_join_date and employee.pph21_join_date.year == year:
             start_month = employee.pph21_join_date.month
-        
-        # Determine end month
+
         end_month = self.date_from.month
         if employee.pph21_resign_date and employee.pph21_resign_date.year == year:
             end_month = min(end_month, employee.pph21_resign_date.month)
-        
+
         return max(1, end_month - start_month + 1)
 
-    def calculate_pph21_ter(self, gross_monthly):
-        """Calculate PPh 21 using TER method (Jan-Nov for permanent employees).
-        
+    # ------------------------------------------------------------------
+    # Core PPh 21 calculation methods
+    # ------------------------------------------------------------------
+    def calculate_pph21_ter(self, gross_monthly, config=None):
+        """Calculate PPh 21 using TER method (Jan-Nov regular months).
+
         Formula: PPh 21 = Gross Monthly x TER Rate
-        
-        Args:
-            gross_monthly: Monthly gross income
-            
+
         Returns:
             tuple: (tax_amount, ter_rate_applied)
         """
         self.ensure_one()
-        employee = self.employee_id
+        if config is None:
+            config = self._get_pph21_config()
 
-        if not employee.pph21_ter_category_id:
+        ter_category = config['ter_category_id']
+        if not ter_category:
             return 0.0, 0.0
 
-        category_code = employee.pph21_ter_category_id.code
         ter_rate = self.env['pph21.ter.rate'].get_ter_rate(
-            category_code, gross_monthly, company=self.company_id)
+            ter_category.code, gross_monthly, company=self.company_id)
 
         tax_amount = gross_monthly * (ter_rate / 100)
 
-        # If employee doesn't have NPWP, increase by 20%
-        if employee.pph21_has_npwp is False:
+        if config['has_npwp'] is False:
             tax_amount *= 1.2
 
         return tax_amount, ter_rate
 
-    def calculate_pph21_progressive(self, gross_monthly):
-        """Calculate PPh 21 using progressive method (Dec/resign or outsource).
-        
-        Steps:
-        1. Calculate annual gross income
-        2. Deduct biaya jabatan (5% of gross, max 6M/year)
-        3. Deduct iuran pensiun (if applicable)
-        4. Deduct PTKP
-        5. Calculate PKP
-        6. Apply progressive rates
-        7. Subtract PPh 21 already paid (TER) in previous months
-        
-        Args:
-            gross_monthly: Current month's gross income
-            
-        Returns:
-            float: Tax amount for this month
-        """
+    def calculate_pph21_progressive_outsource(self, gross_monthly, config=None):
+        """Calculate PPh 21 for outsource: annualized progressive divided by 12."""
         self.ensure_one()
-        employee = self.employee_id
+        if config is None:
+            config = self._get_pph21_config()
 
-        # Step 1: Calculate annual gross
-        annual_gross = self._get_pph21_annual_gross(gross_monthly)
-
-        # Step 2: Biaya Jabatan (5% of gross, max Rp 500,000/month or Rp 6,000,000/year)
-        working_months = self._get_working_months_in_year()
-        max_biaya_jabatan = min(6000000, working_months * 500000)
-        biaya_jabatan = min(annual_gross * 0.05, max_biaya_jabatan)
-
-        # Step 3: Iuran pensiun (standard deduction, can be customized)
-        # Standard: max Rp 200,000/month
-        max_iuran_pensiun = working_months * 200000
-        iuran_pensiun = min(annual_gross * 0.01, max_iuran_pensiun)  # 1% or max
-
-        # Step 4: Net annual income
-        net_annual = annual_gross - biaya_jabatan - iuran_pensiun
-
-        # Step 5: PTKP deduction
-        ptkp_annual = 0.0
-        if employee.pph21_ptkp_id:
-            ptkp_annual = employee.pph21_ptkp_id.annual_amount
-
-        # Step 6: PKP (Penghasilan Kena Pajak)
-        pkp = max(0, net_annual - ptkp_annual)
-
-        # Step 7: Apply progressive tax rates
-        annual_tax = self.env['pph21.progressive.rate'].calculate_progressive_tax(
-            pkp, company=self.company_id)
-
-        # If employee doesn't have NPWP, increase by 20%
-        if employee.pph21_has_npwp is False:
-            annual_tax *= 1.2
-
-        # Step 8: Subtract PPh 21 already paid in previous months
-        total_paid = self._get_pph21_total_ter_paid()
-        tax_this_month = max(0, annual_tax - total_paid)
-
-        # Store calculated values
-        self.pph21_gross_annual = annual_gross
-
-        return tax_this_month
-
-    def calculate_pph21_progressive_outsource(self, gross_monthly):
-        """Calculate PPh 21 for outsource employees using progressive rates monthly.
-        
-        For outsource, the tax is calculated per month using progressive rates
-        applied to monthly PKP (annualized then divided back).
-        
-        Args:
-            gross_monthly: Monthly gross income
-            
-        Returns:
-            float: Tax amount for this month
-        """
-        self.ensure_one()
-        employee = self.employee_id
-
-        # Annualize monthly income
         annual_gross = gross_monthly * 12
-
-        # Biaya Jabatan: 5% of gross, max 6M/year
         biaya_jabatan = min(annual_gross * 0.05, 6000000)
-
-        # Net annual
         net_annual = annual_gross - biaya_jabatan
 
-        # PTKP
-        ptkp_annual = 0.0
-        if employee.pph21_ptkp_id:
-            ptkp_annual = employee.pph21_ptkp_id.annual_amount
+        ptkp = config['ptkp_id']
+        ptkp_annual = ptkp.annual_amount if ptkp else 0.0
 
-        # PKP
         pkp = max(0, net_annual - ptkp_annual)
-
-        # Progressive tax on annual
         annual_tax = self.env['pph21.progressive.rate'].calculate_progressive_tax(
             pkp, company=self.company_id)
 
-        # Monthly tax = annual / 12
         monthly_tax = annual_tax / 12
 
-        # If employee doesn't have NPWP, increase by 20%
-        if employee.pph21_has_npwp is False:
+        if config['has_npwp'] is False:
             monthly_tax *= 1.2
 
         return monthly_tax
 
+    def _calculate_progressive_with_annual(self, gross_monthly, config=None):
+        """Helper returning (tax, annual_gross) for progressive settlement calc."""
+        self.ensure_one()
+        if config is None:
+            config = self._get_pph21_config()
+
+        annual_gross = self._get_pph21_annual_gross(gross_monthly)
+        working_months = self._get_working_months_in_year()
+
+        max_biaya_jabatan = min(6000000, working_months * 500000)
+        biaya_jabatan = min(annual_gross * 0.05, max_biaya_jabatan)
+
+        max_iuran_pensiun = working_months * 200000
+        iuran_pensiun = min(annual_gross * 0.01, max_iuran_pensiun)
+
+        net_annual = annual_gross - biaya_jabatan - iuran_pensiun
+
+        ptkp = config['ptkp_id']
+        ptkp_annual = ptkp.annual_amount if ptkp else 0.0
+
+        pkp = max(0, net_annual - ptkp_annual)
+        annual_tax = self.env['pph21.progressive.rate'].calculate_progressive_tax(
+            pkp, company=self.company_id)
+
+        if config['has_npwp'] is False:
+            annual_tax *= 1.2
+
+        total_paid = self._get_pph21_total_ter_paid()
+        tax_this_month = max(0, annual_tax - total_paid)
+
+        return tax_this_month, annual_gross
+
     def compute_pph21(self):
-        """Main method to compute PPh 21 for the payslip.
-        Call this from salary rule Python code.
-        
+        """Main entry point to compute PPh 21. Call from salary rule Python code.
+
         Returns:
-            float: PPh 21 tax amount (positive value, should be deducted)
+            float: PPh 21 tax amount (positive value, should be deducted).
         """
         self.ensure_one()
-        employee = self.employee_id
+        config = self._get_pph21_config()
         gross_monthly = self._get_pph21_monthly_gross()
 
         values = {
@@ -273,6 +250,7 @@ class HrPayslip(models.Model):
             'pph21_method_used': False,
             'pph21_ter_rate_applied': 0.0,
             'pph21_gross_annual': 0.0,
+            'pph21_config_source': config.get('source'),
         }
 
         if gross_monthly <= 0:
@@ -284,18 +262,15 @@ class HrPayslip(models.Model):
         ter_rate_applied = 0.0
         gross_annual = 0.0
 
-        if employee.pph21_employment_type == 'outsource':
-            # Outsource always uses progressive
-            tax_amount = self.calculate_pph21_progressive_outsource(gross_monthly)
+        if config['employment_type'] == 'outsource':
+            tax_amount = self.calculate_pph21_progressive_outsource(gross_monthly, config)
             method_used = 'progressive'
             gross_annual = gross_monthly * 12
-        elif employee.pph21_calculation_method == 'progressive' or self.pph21_is_final_period:
-            # Always progressive OR December/resign month - final settlement
-            tax_amount, gross_annual = self._calculate_progressive_with_annual(gross_monthly)
+        elif config['calculation_method'] == 'progressive' or self.pph21_is_final_period:
+            tax_amount, gross_annual = self._calculate_progressive_with_annual(gross_monthly, config)
             method_used = 'progressive'
         else:
-            # Regular month (Jan-Nov) - use TER
-            tax_amount, ter_rate_applied = self.calculate_pph21_ter(gross_monthly)
+            tax_amount, ter_rate_applied = self.calculate_pph21_ter(gross_monthly, config)
             method_used = 'ter'
 
         values.update({
@@ -308,43 +283,10 @@ class HrPayslip(models.Model):
         return tax_amount
 
     def _write_pph21_values(self, values):
-        """Persist PPh 21 calculation results to the payslip.
-        Uses sudo().write() so values survive even when called during
-        salary rule evaluation."""
+        """Persist PPh 21 calculation results to the payslip."""
         self.ensure_one()
         try:
             self.sudo().write(values)
         except Exception:
             # Silently fail to avoid breaking payslip computation
             pass
-
-    def _calculate_progressive_with_annual(self, gross_monthly):
-        """Helper that returns (tax, annual_gross) for progressive calculation."""
-        self.ensure_one()
-        employee = self.employee_id
-
-        annual_gross = self._get_pph21_annual_gross(gross_monthly)
-        working_months = self._get_working_months_in_year()
-        max_biaya_jabatan = min(6000000, working_months * 500000)
-        biaya_jabatan = min(annual_gross * 0.05, max_biaya_jabatan)
-        max_iuran_pensiun = working_months * 200000
-        iuran_pensiun = min(annual_gross * 0.01, max_iuran_pensiun)
-
-        net_annual = annual_gross - biaya_jabatan - iuran_pensiun
-
-        ptkp_annual = 0.0
-        if employee.pph21_ptkp_id:
-            ptkp_annual = employee.pph21_ptkp_id.annual_amount
-
-        pkp = max(0, net_annual - ptkp_annual)
-
-        annual_tax = self.env['pph21.progressive.rate'].calculate_progressive_tax(
-            pkp, company=self.company_id)
-
-        if employee.pph21_has_npwp is False:
-            annual_tax *= 1.2
-
-        total_paid = self._get_pph21_total_ter_paid()
-        tax_this_month = max(0, annual_tax - total_paid)
-
-        return tax_this_month, annual_gross
