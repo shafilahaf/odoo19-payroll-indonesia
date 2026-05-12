@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_contract_view_form_l10n_id_pph21" model="ir.ui.view">
+        <field name="name">hr.contract.form.l10n.id.pph21</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Indonesian PPh21" groups="hr.group_hr_user">
+                    <group>
+                        <group string="Method and Timing">
+                            <field name="l10n_id_pph21_method"/>
+                            <field name="l10n_id_pph21_effective_date"/>
+                            <field name="l10n_id_pph21_annual_reconciliation" invisible="l10n_id_pph21_method != 'progressive'"/>
+                        </group>
+                        <group string="Placeholder Inputs">
+                            <field name="l10n_id_pph21_additional_taxable_amount"/>
+                            <field name="l10n_id_pph21_override_active"/>
+                            <field name="l10n_id_pph21_override_amount" invisible="not l10n_id_pph21_override_active"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field
+                            name="l10n_id_pph21_note"
+                            placeholder="Track contract-specific taxable components, temporary overrides, or future statutory notes."
+                        />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>

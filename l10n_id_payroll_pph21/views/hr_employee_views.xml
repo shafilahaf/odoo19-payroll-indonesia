@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_employee_form_l10n_id_pph21" model="ir.ui.view">
+        <field name="name">hr.employee.form.l10n.id.pph21</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="Indonesian PPh21" groups="hr.group_hr_user">
+                    <group>
+                        <group string="Tax Identity">
+                            <field name="l10n_id_has_npwp"/>
+                            <field name="l10n_id_npwp" invisible="not l10n_id_has_npwp"/>
+                            <field name="l10n_id_pph21_tax_status"/>
+                            <field name="l10n_id_pph21_dependent_count"/>
+                            <field name="l10n_id_pph21_method"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field
+                            name="l10n_id_pph21_note"
+                            placeholder="Document NPWP/PTKP assumptions, missing employee data, or manual PPh21 exceptions."
+                        />
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
