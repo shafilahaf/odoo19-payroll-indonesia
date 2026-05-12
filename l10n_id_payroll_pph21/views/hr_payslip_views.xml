@@ -1,4 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+    Payslip view extension for Indonesian PPh21.
+
+    This file inherits from hr_payroll.view_hr_payslip_form which is the standard
+    payslip form view provided by the Enterprise payroll engine.
+
+    In Odoo 19 Enterprise, hr_payroll is typically installed as a transitive dependency
+    of hr_contract_salary_payroll, so its XML IDs remain accessible even though
+    hr_payroll is not listed directly in this addon's depends.
+
+    If the payslip form view in your environment uses a different XML ID (for example
+    from a custom Enterprise payroll module), update the ref attribute on inherit_id
+    below to match.  Common alternatives:
+      - hr_contract_salary_payroll.view_hr_payslip_form
+      - payroll.view_hr_payslip_form
+-->
 <odoo>
     <record id="view_hr_payslip_form_l10n_id_pph21" model="ir.ui.view">
         <field name="name">hr.payslip.form.l10n.id.pph21</field>

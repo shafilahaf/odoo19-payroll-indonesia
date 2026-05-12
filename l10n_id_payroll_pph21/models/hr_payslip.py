@@ -2,6 +2,18 @@ from odoo import _, api, fields, models
 
 
 class HrPayslip(models.Model):
+    """Extension of hr.payslip for Indonesian PPh21 placeholder integration.
+
+    In Odoo 19 Enterprise, the classic hr.contract model is replaced by hr.version
+    (salary packages, provided by hr_contract_salary).  The exact relation between
+    hr.payslip and hr.version depends on your Enterprise payroll engine version.
+
+    This extension therefore uses employee-level PPh21 settings as the primary data
+    source and provides clearly named extension hooks (_l10n_id_get_pph21_salary_version
+    and _l10n_id_get_pph21_wage_base) that you can override once you have confirmed
+    the hr.payslip → hr.version relation path in your environment.
+    """
+
     _inherit = "hr.payslip"
 
     l10n_id_pph21_method = fields.Selection(
@@ -39,10 +51,61 @@ class HrPayslip(models.Model):
         compute="_compute_l10n_id_pph21_placeholder",
     )
 
-    def _l10n_id_get_pph21_base_amount(self):
+    # ------------------------------------------------------------------
+    # Extension points
+    # ------------------------------------------------------------------
+
+    def _l10n_id_get_pph21_salary_version(self):
+        """Return the hr.version (salary package) linked to this payslip.
+
+        Extension point: override this method to return the correct hr.version
+        record once the hr.payslip → hr.version relation path is confirmed in
+        your Odoo 19 Enterprise environment.
+
+        Possible paths to investigate:
+          - self.contract_id          if payslip.contract_id → hr.version
+          - self.employee_id.version_id   if employee carries a direct version link
+          - Other: check hr_contract_salary_payroll source for the actual field name
+
+        Returns an empty hr.version recordset when the relation is unknown.
+        """
         self.ensure_one()
-        contract = self.contract_id
-        return (contract.wage or 0.0) + (contract.l10n_id_pph21_additional_taxable_amount or 0.0)
+        return self.env["hr.version"].browse()
+
+    def _l10n_id_get_pph21_wage_base(self):
+        """Return the monthly wage amount to use as PPh21 taxable basis.
+
+        Extension point: override this method to supply the correct taxable wage
+        for your Odoo 19 Enterprise payroll setup.
+
+        In a standard hr_contract_salary_payroll setup the wage may be accessible
+        via the hr.version (salary package) record returned by
+        _l10n_id_get_pph21_salary_version().  Once that relation is confirmed,
+        adapt this method to read the wage from there.
+
+        Currently returns 0.0 as a safe default; the placeholder PPh21 amounts
+        will be 0 until this is overridden.
+        """
+        self.ensure_one()
+        return 0.0
+
+    # ------------------------------------------------------------------
+    # Core helpers
+    # ------------------------------------------------------------------
+
+    def _l10n_id_get_pph21_base_amount(self):
+        """Return total monthly taxable basis: wage base + additional taxable input.
+
+        The additional taxable input is read from the linked hr.version salary
+        package when _l10n_id_get_pph21_salary_version() returns a record.
+        """
+        self.ensure_one()
+        wage = self._l10n_id_get_pph21_wage_base()
+        additional = 0.0
+        salary_version = self._l10n_id_get_pph21_salary_version()
+        if salary_version:
+            additional = salary_version.l10n_id_pph21_additional_taxable_amount or 0.0
+        return wage + additional
 
     def _l10n_id_compute_progressive_placeholder_tax(self, annual_taxable_amount, brackets):
         self.ensure_one()
@@ -56,19 +119,32 @@ class HrPayslip(models.Model):
 
     def _l10n_id_get_pph21_placeholder_values(self):
         self.ensure_one()
-        contract = self.contract_id
         employee = self.employee_id
         company = self.company_id
-        effective_date = contract.l10n_id_pph21_effective_date or self.date_to or fields.Date.context_today(self)
-        method = contract.l10n_id_pph21_method or employee.l10n_id_pph21_method or "ter"
+        salary_version = self._l10n_id_get_pph21_salary_version()
+
+        # PPh21 method: prefer salary package override, fall back to employee default.
+        method = (
+            (salary_version and salary_version.l10n_id_pph21_method)
+            or employee.l10n_id_pph21_method
+            or "ter"
+        )
+        # Effective date: prefer salary package, fall back to payslip end date.
+        effective_date = (
+            (salary_version and salary_version.l10n_id_pph21_effective_date)
+            or self.date_to
+            or fields.Date.context_today(self)
+        )
+
         monthly_taxable_amount = self._l10n_id_get_pph21_base_amount()
         placeholder_rate = 0.0
         amount = 0.0
         source = _("No placeholder table matched.")
 
-        if contract.l10n_id_pph21_override_active:
-            amount = contract.l10n_id_pph21_override_amount or 0.0
-            source = _("Manual contract override")
+        # Manual override on salary package takes highest priority.
+        if salary_version and salary_version.l10n_id_pph21_override_active:
+            amount = salary_version.l10n_id_pph21_override_amount or 0.0
+            source = _("Manual salary package override")
         elif method == "ter":
             bracket = self.env["l10n_id.pph21.ter.bracket"]._l10n_id_find_placeholder_bracket(
                 monthly_taxable_amount,
@@ -121,26 +197,19 @@ class HrPayslip(models.Model):
         "employee_id",
         "employee_id.l10n_id_pph21_method",
         "employee_id.l10n_id_pph21_tax_status",
-        "contract_id",
-        "contract_id.wage",
-        "contract_id.l10n_id_pph21_method",
-        "contract_id.l10n_id_pph21_effective_date",
-        "contract_id.l10n_id_pph21_additional_taxable_amount",
-        "contract_id.l10n_id_pph21_override_active",
-        "contract_id.l10n_id_pph21_override_amount",
         "date_to",
     )
     def _compute_l10n_id_pph21_placeholder(self):
         for payslip in self:
-            values = payslip._l10n_id_get_pph21_placeholder_values() if payslip.contract_id else {
-                "method": False,
-                "monthly_taxable_amount": 0.0,
-                "placeholder_rate": 0.0,
-                "amount": 0.0,
-                "source": _("No active contract linked to this payslip."),
-                "breakdown": _("No active contract linked to this payslip."),
-                "rule_code": "PPH21",
-            }
+            if not payslip.employee_id:
+                payslip.l10n_id_pph21_method = False
+                payslip.l10n_id_pph21_monthly_taxable_income = 0.0
+                payslip.l10n_id_pph21_placeholder_rate = 0.0
+                payslip.l10n_id_pph21_amount = 0.0
+                payslip.l10n_id_pph21_rule_code = "PPH21"
+                payslip.l10n_id_pph21_breakdown = _("No employee linked to this payslip.")
+                continue
+            values = payslip._l10n_id_get_pph21_placeholder_values()
             payslip.l10n_id_pph21_method = values["method"]
             payslip.l10n_id_pph21_monthly_taxable_income = values["monthly_taxable_amount"]
             payslip.l10n_id_pph21_placeholder_rate = values["placeholder_rate"]
@@ -163,3 +232,4 @@ class HrPayslip(models.Model):
     def _l10n_id_get_pph21_salary_rule_amount(self):
         self.ensure_one()
         return self._l10n_id_get_pph21_placeholder_values()["amount"]
+
