@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- PTKP TK/0 - Single, no dependents -->
+        <record id="ptkp_tk0" model="pph21.ptkp">
+            <field name="name">TK/0 - Tidak Kawin, Tanpa Tanggungan</field>
+            <field name="code">TK/0</field>
+            <field name="marital_status">tk</field>
+            <field name="dependents">0</field>
+            <field name="annual_amount">54000000</field>
+            <field name="ter_category_id" ref="ter_category_a"/>
+        </record>
+
+        <!-- PTKP TK/1 - Single, 1 dependent -->
+        <record id="ptkp_tk1" model="pph21.ptkp">
+            <field name="name">TK/1 - Tidak Kawin, 1 Tanggungan</field>
+            <field name="code">TK/1</field>
+            <field name="marital_status">tk</field>
+            <field name="dependents">1</field>
+            <field name="annual_amount">58500000</field>
+            <field name="ter_category_id" ref="ter_category_a"/>
+        </record>
+
+        <!-- PTKP TK/2 - Single, 2 dependents -->
+        <record id="ptkp_tk2" model="pph21.ptkp">
+            <field name="name">TK/2 - Tidak Kawin, 2 Tanggungan</field>
+            <field name="code">TK/2</field>
+            <field name="marital_status">tk</field>
+            <field name="dependents">2</field>
+            <field name="annual_amount">63000000</field>
+            <field name="ter_category_id" ref="ter_category_b"/>
+        </record>
+
+        <!-- PTKP TK/3 - Single, 3 dependents -->
+        <record id="ptkp_tk3" model="pph21.ptkp">
+            <field name="name">TK/3 - Tidak Kawin, 3 Tanggungan</field>
+            <field name="code">TK/3</field>
+            <field name="marital_status">tk</field>
+            <field name="dependents">3</field>
+            <field name="annual_amount">67500000</field>
+            <field name="ter_category_id" ref="ter_category_b"/>
+        </record>
+
+        <!-- PTKP K/0 - Married, no dependents -->
+        <record id="ptkp_k0" model="pph21.ptkp">
+            <field name="name">K/0 - Kawin, Tanpa Tanggungan</field>
+            <field name="code">K/0</field>
+            <field name="marital_status">k</field>
+            <field name="dependents">0</field>
+            <field name="annual_amount">58500000</field>
+            <field name="ter_category_id" ref="ter_category_a"/>
+        </record>
+
+        <!-- PTKP K/1 - Married, 1 dependent -->
+        <record id="ptkp_k1" model="pph21.ptkp">
+            <field name="name">K/1 - Kawin, 1 Tanggungan</field>
+            <field name="code">K/1</field>
+            <field name="marital_status">k</field>
+            <field name="dependents">1</field>
+            <field name="annual_amount">63000000</field>
+            <field name="ter_category_id" ref="ter_category_b"/>
+        </record>
+
+        <!-- PTKP K/2 - Married, 2 dependents -->
+        <record id="ptkp_k2" model="pph21.ptkp">
+            <field name="name">K/2 - Kawin, 2 Tanggungan</field>
+            <field name="code">K/2</field>
+            <field name="marital_status">k</field>
+            <field name="dependents">2</field>
+            <field name="annual_amount">67500000</field>
+            <field name="ter_category_id" ref="ter_category_b"/>
+        </record>
+
+        <!-- PTKP K/3 - Married, 3 dependents -->
+        <record id="ptkp_k3" model="pph21.ptkp">
+            <field name="name">K/3 - Kawin, 3 Tanggungan</field>
+            <field name="code">K/3</field>
+            <field name="marital_status">k</field>
+            <field name="dependents">3</field>
+            <field name="annual_amount">72000000</field>
+            <field name="ter_category_id" ref="ter_category_c"/>
+        </record>
+
+    </data>
+</odoo>

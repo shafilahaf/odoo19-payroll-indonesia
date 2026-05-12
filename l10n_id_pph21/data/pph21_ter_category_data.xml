@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- TER Category A: PTKP TK/0, TK/1, K/0 -->
+        <record id="ter_category_a" model="pph21.ter.category">
+            <field name="name">Kategori A</field>
+            <field name="code">A</field>
+            <field name="description">Untuk status PTKP: TK/0 (Tidak Kawin tanpa tanggungan), TK/1 (Tidak Kawin 1 tanggungan), K/0 (Kawin tanpa tanggungan)</field>
+        </record>
+
+        <!-- TER Category B: PTKP TK/2, TK/3, K/1, K/2 -->
+        <record id="ter_category_b" model="pph21.ter.category">
+            <field name="name">Kategori B</field>
+            <field name="code">B</field>
+            <field name="description">Untuk status PTKP: TK/2, TK/3, K/1, K/2</field>
+        </record>
+
+        <!-- TER Category C: PTKP K/3 -->
+        <record id="ter_category_c" model="pph21.ter.category">
+            <field name="name">Kategori C</field>
+            <field name="code">C</field>
+            <field name="description">Untuk status PTKP: K/3 (Kawin dengan 3 tanggungan)</field>
+        </record>
+
+    </data>
+</odoo>

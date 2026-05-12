@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Progressive Rate Tree View -->
+    <record id="pph21_progressive_rate_view_tree" model="ir.ui.view">
+        <field name="name">pph21.progressive.rate.tree</field>
+        <field name="model">pph21.progressive.rate</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="range_from"/>
+                <field name="range_to"/>
+                <field name="rate"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- Progressive Rate Form View -->
+    <record id="pph21_progressive_rate_view_form" model="ir.ui.view">
+        <field name="name">pph21.progressive.rate.form</field>
+        <field name="model">pph21.progressive.rate</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                        </group>
+                        <group>
+                            <field name="range_from"/>
+                            <field name="range_to"/>
+                            <field name="rate"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Progressive Rate Action -->
+    <record id="action_pph21_progressive_rate" model="ir.actions.act_window">
+        <field name="name">Progressive Tax Rates</field>
+        <field name="res_model">pph21.progressive.rate</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a Progressive Tax Rate
+            </p>
+            <p>
+                Progressive tax rates (Pasal 17 UU HPP) are used for the annual 
+                PPh 21 calculation in December or resignation month.
+            </p>
+        </field>
+    </record>
+
+</odoo>

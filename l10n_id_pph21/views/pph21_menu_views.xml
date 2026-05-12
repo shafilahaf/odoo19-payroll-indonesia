@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Main PPh 21 Menu under Payroll -->
+    <menuitem id="menu_pph21_root"
+              name="PPh 21"
+              parent="hr_payroll.menu_hr_payroll_root"
+              sequence="50"/>
+
+    <!-- Configuration submenu -->
+    <menuitem id="menu_pph21_config"
+              name="Configuration"
+              parent="menu_pph21_root"
+              sequence="10"/>
+
+    <menuitem id="menu_pph21_ptkp"
+              name="PTKP Status"
+              parent="menu_pph21_config"
+              action="action_pph21_ptkp"
+              sequence="10"/>
+
+    <menuitem id="menu_pph21_ter_category"
+              name="TER Categories"
+              parent="menu_pph21_config"
+              action="action_pph21_ter_category"
+              sequence="20"/>
+
+    <menuitem id="menu_pph21_ter_rate"
+              name="TER Rates"
+              parent="menu_pph21_config"
+              action="action_pph21_ter_rate"
+              sequence="30"/>
+
+    <menuitem id="menu_pph21_progressive_rate"
+              name="Progressive Tax Rates"
+              parent="menu_pph21_config"
+              action="action_pph21_progressive_rate"
+              sequence="40"/>
+
+</odoo>

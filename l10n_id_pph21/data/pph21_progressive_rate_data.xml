@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+
+        <!-- Progressive Tax Rates (Pasal 17 UU HPP) -->
+
+        <record id="progressive_rate_1" model="pph21.progressive.rate">
+            <field name="name">Lapisan 1 - 5%</field>
+            <field name="sequence">10</field>
+            <field name="range_from">0</field>
+            <field name="range_to">60000000</field>
+            <field name="rate">5</field>
+        </record>
+
+        <record id="progressive_rate_2" model="pph21.progressive.rate">
+            <field name="name">Lapisan 2 - 15%</field>
+            <field name="sequence">20</field>
+            <field name="range_from">60000000</field>
+            <field name="range_to">250000000</field>
+            <field name="rate">15</field>
+        </record>
+
+        <record id="progressive_rate_3" model="pph21.progressive.rate">
+            <field name="name">Lapisan 3 - 25%</field>
+            <field name="sequence">30</field>
+            <field name="range_from">250000000</field>
+            <field name="range_to">500000000</field>
+            <field name="rate">25</field>
+        </record>
+
+        <record id="progressive_rate_4" model="pph21.progressive.rate">
+            <field name="name">Lapisan 4 - 30%</field>
+            <field name="sequence">40</field>
+            <field name="range_from">500000000</field>
+            <field name="range_to">5000000000</field>
+            <field name="rate">30</field>
+        </record>
+
+        <record id="progressive_rate_5" model="pph21.progressive.rate">
+            <field name="name">Lapisan 5 - 35%</field>
+            <field name="sequence">50</field>
+            <field name="range_from">5000000000</field>
+            <field name="range_to">0</field>
+            <field name="rate">35</field>
+        </record>
+
+    </data>
+</odoo>

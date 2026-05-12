@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Employee Form View Extension -->
+    <record id="hr_employee_view_form_pph21" model="ir.ui.view">
+        <field name="name">hr.employee.form.pph21</field>
+        <field name="model">hr.employee</field>
+        <field name="inherit_id" ref="hr.view_employee_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook" position="inside">
+                <page string="PPh 21 Tax" name="pph21_tax">
+                    <group>
+                        <group string="Tax Identity">
+                            <field name="pph21_npwp"/>
+                            <field name="pph21_has_npwp"/>
+                            <field name="pph21_employment_type"/>
+                        </group>
+                        <group string="Tax Configuration">
+                            <field name="pph21_ptkp_id"/>
+                            <field name="pph21_ter_category_id"/>
+                            <field name="pph21_calculation_method"/>
+                        </group>
+                        <group string="Tax Period">
+                            <field name="pph21_join_date"/>
+                            <field name="pph21_resign_date"/>
+                        </group>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,9 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pph21_ptkp_user,pph21.ptkp.user,model_pph21_ptkp,hr_payroll.group_hr_payroll_user,1,0,0,0
+access_pph21_ptkp_manager,pph21.ptkp.manager,model_pph21_ptkp,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_pph21_ter_category_user,pph21.ter.category.user,model_pph21_ter_category,hr_payroll.group_hr_payroll_user,1,0,0,0
+access_pph21_ter_category_manager,pph21.ter.category.manager,model_pph21_ter_category,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_pph21_ter_rate_user,pph21.ter.rate.user,model_pph21_ter_rate,hr_payroll.group_hr_payroll_user,1,0,0,0
+access_pph21_ter_rate_manager,pph21.ter.rate.manager,model_pph21_ter_rate,hr_payroll.group_hr_payroll_manager,1,1,1,1
+access_pph21_progressive_rate_user,pph21.progressive.rate.user,model_pph21_progressive_rate,hr_payroll.group_hr_payroll_user,1,0,0,0
+access_pph21_progressive_rate_manager,pph21.progressive.rate.manager,model_pph21_progressive_rate,hr_payroll.group_hr_payroll_manager,1,1,1,1

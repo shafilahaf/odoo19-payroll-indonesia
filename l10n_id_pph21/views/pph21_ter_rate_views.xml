@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- TER Rate Tree View -->
+    <record id="pph21_ter_rate_view_tree" model="ir.ui.view">
+        <field name="name">pph21.ter.rate.tree</field>
+        <field name="model">pph21.ter.rate</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="category_id"/>
+                <field name="range_from"/>
+                <field name="range_to"/>
+                <field name="rate"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- TER Rate Form View -->
+    <record id="pph21_ter_rate_view_form" model="ir.ui.view">
+        <field name="name">pph21.ter.rate.form</field>
+        <field name="model">pph21.ter.rate</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="category_id"/>
+                            <field name="range_from"/>
+                            <field name="range_to"/>
+                        </group>
+                        <group>
+                            <field name="rate"/>
+                            <field name="company_id" groups="base.group_multi_company"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- TER Rate Action -->
+    <record id="action_pph21_ter_rate" model="ir.actions.act_window">
+        <field name="name">TER Rates</field>
+        <field name="res_model">pph21.ter.rate</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create a TER Rate
+            </p>
+            <p>
+                TER (Tarif Efektif Rata-rata) rates define the monthly effective tax rate 
+                for each income bracket within a TER category.
+            </p>
+        </field>
+    </record>
+
+</odoo>
