@@ -66,22 +66,29 @@ class HrPayslip(models.Model):
             return self.version_id.wage
         return 0.0
 
-    def _get_pph21_annual_gross(self, current_month_gross=0):
-        """Calculate annualized gross income.
-        For final period calculation, we need all months in the year.
+    def _get_pph21_previous_payslips(self):
+        """Find previous payslips in the same tax year.
+        Accepts any state except draft/cancel (covers Odoo versions with
+        different state names: verify, done, validated, paid, etc.)
         """
         self.ensure_one()
         employee = self.employee_id
         year = self.date_from.year
 
-        # Get all payslips for the same employee in the same year, excluding current
-        prev_payslips = self.search([
+        return self.search([
             ('employee_id', '=', employee.id),
             ('date_from', '>=', date(year, 1, 1)),
             ('date_from', '<', self.date_from),
-            ('state', 'in', ['done', 'paid']),
+            ('state', 'not in', ['draft', 'cancel']),
             ('id', '!=', self.id),
         ])
+
+    def _get_pph21_annual_gross(self, current_month_gross=0):
+        """Calculate annualized gross income.
+        For final period calculation, we need all months in the year.
+        """
+        self.ensure_one()
+        prev_payslips = self._get_pph21_previous_payslips()
 
         annual_gross = current_month_gross
         for slip in prev_payslips:
@@ -92,17 +99,7 @@ class HrPayslip(models.Model):
     def _get_pph21_total_ter_paid(self):
         """Get total PPh 21 already paid via TER in previous months of same year."""
         self.ensure_one()
-        employee = self.employee_id
-        year = self.date_from.year
-
-        prev_payslips = self.search([
-            ('employee_id', '=', employee.id),
-            ('date_from', '>=', date(year, 1, 1)),
-            ('date_from', '<', self.date_from),
-            ('state', 'in', ['done', 'paid']),
-            ('id', '!=', self.id),
-        ])
-
+        prev_payslips = self._get_pph21_previous_payslips()
         total_paid = sum(slip.pph21_tax_amount for slip in prev_payslips)
         return total_paid
 
