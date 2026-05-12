@@ -6,7 +6,7 @@
     "author": "shafilahaf",
     "website": "https://github.com/shafilahaf/odoo19-payroll-indonesia",
     "license": "LGPL-3",
-    "depends": ["hr", "hr_contract", "hr_payroll"],
+    "depends": ["hr", "hr_payroll", "hr_contract_salary"],
     "data": [
         "security/ir.model.access.csv",
         "data/pph21_placeholder_data.xml",

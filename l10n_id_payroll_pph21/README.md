@@ -13,11 +13,20 @@ This addon extends the built-in Enterprise payroll flow instead of creating a st
   - `TER Placeholder`
   - `Progressive Annual Reconciliation Placeholder`
 
-## Dependencies
+## Dependencies (Odoo 19 Enterprise)
 
-- `hr`
-- `hr_contract`
-- `hr_payroll` (Enterprise payroll)
+- `hr` — base HR module
+- `hr_payroll` — Enterprise payroll engine (provides `hr.payslip`, `hr.salary.rule`, etc.)
+- `hr_contract_salary` — Enterprise salary-package/contract extension (provides the
+  `hr.contract` model and its primary form view in Odoo 19 Enterprise)
+
+> **Compatibility note**: In Odoo 19 Enterprise the standalone `hr_contract` community
+> module is not distributed separately. The `hr.contract` model and its base form view
+> (`hr_contract_salary.hr_contract_view_form_salary`) are supplied by the
+> `hr_contract_salary` Enterprise module. All references to `hr_contract.hr_contract_view_form`
+> have been updated accordingly. If your distribution uses a different view ID for the
+> contract form, update the `inherit_id` references in
+> `views/hr_contract_views.xml` to match.
 
 ## What is implemented right now
 
