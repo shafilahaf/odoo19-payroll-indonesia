@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+    <record id="l10n_id_payroll_settings_main_company" model="l10n_id.payroll.settings">
+        <field name="company_id" ref="base.main_company"/>
+        <field name="pph21_method">ter</field>
+        <field name="thr_policy">prorated_service_months</field>
+        <field name="pph21_note">Placeholder only. Validate TER/PTKP behavior against the latest Indonesian tax regulation before production use.</field>
+        <field name="bpjs_note">Placeholder only. Confirm BPJS rates, caps, and company policies before using these settings operationally.</field>
+        <field name="thr_note">Placeholder only. Refine THR eligibility and proration rules according to company policy and current regulation.</field>
+    </record>
+
+    <record id="l10n_id_payroll_structure_regular" model="l10n_id.payroll.structure">
+        <field name="name">Indonesia Regular Payroll</field>
+        <field name="code">ID_REGULAR</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="note">Starter structure for Indonesian monthly payroll. The formulas below are scaffolding for a future payroll engine, not production-ready statutory logic.</field>
+    </record>
+
+    <record id="l10n_id_payroll_rule_basic_salary" model="l10n_id.payroll.rule">
+        <field name="structure_id" ref="l10n_id_payroll_structure_regular"/>
+        <field name="sequence">10</field>
+        <field name="name">Basic Salary</field>
+        <field name="code">BASIC</field>
+        <field name="category">basic</field>
+        <field name="rule_type">earning</field>
+        <field name="amount_type">python</field>
+        <field name="python_expression">result = contract.wage or 0.0</field>
+        <field name="note">Expected to map the Odoo contract wage into Indonesian payroll inputs.</field>
+    </record>
+
+    <record id="l10n_id_payroll_rule_transport" model="l10n_id.payroll.rule">
+        <field name="structure_id" ref="l10n_id_payroll_structure_regular"/>
+        <field name="sequence">20</field>
+        <field name="name">Transport Allowance</field>
+        <field name="code">ALW_TRANSPORT</field>
+        <field name="category">allowance</field>
+        <field name="rule_type">earning</field>
+        <field name="amount_type">python</field>
+        <field name="python_expression">result = contract.l10n_id_allowance_transport or 0.0</field>
+        <field name="note">Simple recurring allowance placeholder sourced from contract localization fields.</field>
+    </record>
+
+    <record id="l10n_id_payroll_rule_meal" model="l10n_id.payroll.rule">
+        <field name="structure_id" ref="l10n_id_payroll_structure_regular"/>
+        <field name="sequence">30</field>
+        <field name="name">Meal Allowance</field>
+        <field name="code">ALW_MEAL</field>
+        <field name="category">allowance</field>
+        <field name="rule_type">earning</field>
+        <field name="amount_type">python</field>
+        <field name="python_expression">result = contract.l10n_id_allowance_meal or 0.0</field>
+        <field name="note">Placeholder recurring allowance rule.</field>
+    </record>
+
+    <record id="l10n_id_payroll_rule_bpjs" model="l10n_id.payroll.rule">
+        <field name="structure_id" ref="l10n_id_payroll_structure_regular"/>
+        <field name="sequence">100</field>
+        <field name="name">BPJS Employee Contribution</field>
+        <field name="code">BPJS_EMP</field>
+        <field name="category">bpjs</field>
+        <field name="rule_type">deduction</field>
+        <field name="amount_type">note</field>
+        <field name="note">Scaffold only. A future engine should combine employee participation flags with company BPJS settings and wage caps.</field>
+    </record>
+
+    <record id="l10n_id_payroll_rule_pph21" model="l10n_id.payroll.rule">
+        <field name="structure_id" ref="l10n_id_payroll_structure_regular"/>
+        <field name="sequence">110</field>
+        <field name="name">PPh21 Withholding</field>
+        <field name="code">PPH21</field>
+        <field name="category">pph21</field>
+        <field name="rule_type">deduction</field>
+        <field name="amount_type">note</field>
+        <field name="note">Scaffold only. PPh21 needs complete TER/progressive handling, PTKP logic, and annual reconciliation before production use.</field>
+    </record>
+
+    <record id="l10n_id_payroll_rule_thr" model="l10n_id.payroll.rule">
+        <field name="structure_id" ref="l10n_id_payroll_structure_regular"/>
+        <field name="sequence">200</field>
+        <field name="name">THR</field>
+        <field name="code">THR</field>
+        <field name="category">thr</field>
+        <field name="rule_type">earning</field>
+        <field name="amount_type">note</field>
+        <field name="note">Scaffold only. THR should later consider service period, policy, manual override, and payout timing.</field>
+    </record>
+</odoo>

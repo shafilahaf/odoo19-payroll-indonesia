@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="hr_contract_view_form_l10n_id_payroll" model="ir.ui.view">
+        <field name="name">hr.contract.form.l10n.id.payroll</field>
+        <field name="model">hr.contract</field>
+        <field name="inherit_id" ref="hr_contract.hr_contract_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet/notebook" position="inside">
+                <page string="Indonesian Payroll" groups="hr.group_hr_user">
+                    <group>
+                        <group string="Recurring Inputs">
+                            <field name="l10n_id_pay_schedule"/>
+                            <field name="l10n_id_allowance_transport"/>
+                            <field name="l10n_id_allowance_meal"/>
+                            <field name="l10n_id_allowance_communication"/>
+                            <field name="l10n_id_allowance_other_taxable"/>
+                            <field name="l10n_id_allowance_other_nontaxable"/>
+                        </group>
+                        <group string="Deductions and Overrides">
+                            <field name="l10n_id_deduction_cooperative"/>
+                            <field name="l10n_id_deduction_other"/>
+                            <field name="l10n_id_bpjs_base_override"/>
+                            <field name="l10n_id_pph21_override"/>
+                            <field name="l10n_id_thr_method"/>
+                            <field name="l10n_id_thr_amount" invisible="l10n_id_thr_method != 'manual'"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="l10n_id_payroll_note" placeholder="Track contract-specific payroll handling decisions here."/>
+                    </group>
+                </page>
+            </xpath>
+        </field>
+    </record>
+</odoo>
