@@ -35,8 +35,9 @@ class Pph21ProgressiveRate(models.Model):
         if annual_pkp <= 0:
             return 0.0
         
+        # Accept records either belonging to current company or with no company
         rates = self.search([
-            ('company_id', '=', company.id),
+            '|', ('company_id', '=', company.id), ('company_id', '=', False),
         ], order='sequence, range_from')
         
         total_tax = 0.0

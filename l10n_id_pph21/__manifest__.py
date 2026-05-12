@@ -31,10 +31,10 @@ References:
     ],
     'data': [
         'security/ir.model.access.csv',
-        'data/pph21_ptkp_data.xml',
         'data/pph21_ter_category_data.xml',
         'data/pph21_ter_rate_data.xml',
         'data/pph21_progressive_rate_data.xml',
+        'data/pph21_ptkp_data.xml',
         'views/pph21_ptkp_views.xml',
         'views/pph21_ter_category_views.xml',
         'views/pph21_ter_rate_views.xml',
