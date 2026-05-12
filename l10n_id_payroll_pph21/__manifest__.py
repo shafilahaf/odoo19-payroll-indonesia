@@ -1,0 +1,20 @@
+{
+    "name": "Indonesia PPh21 Payroll Extension",
+    "summary": "Odoo 19 Enterprise payroll extension scaffold for Indonesian PPh21",
+    "version": "19.0.1.0.0",
+    "category": "Human Resources/Payroll",
+    "author": "shafilahaf",
+    "website": "https://github.com/shafilahaf/odoo19-payroll-indonesia",
+    "license": "LGPL-3",
+    "depends": ["hr", "hr_contract", "hr_payroll"],
+    "data": [
+        "security/ir.model.access.csv",
+        "data/pph21_placeholder_data.xml",
+        "views/hr_employee_views.xml",
+        "views/hr_contract_views.xml",
+        "views/hr_payslip_views.xml",
+        "views/pph21_configuration_views.xml",
+    ],
+    "installable": True,
+    "application": False,
+}

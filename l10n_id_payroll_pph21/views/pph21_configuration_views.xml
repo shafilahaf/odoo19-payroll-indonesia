@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_l10n_id_pph21_ter_bracket_list" model="ir.ui.view">
+        <field name="name">l10n_id.pph21.ter.bracket.list</field>
+        <field name="model">l10n_id.pph21.ter.bracket</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="effective_date_from"/>
+                <field name="effective_date_to"/>
+                <field name="income_from"/>
+                <field name="income_to"/>
+                <field name="placeholder_rate"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_id_pph21_ter_bracket_form" model="ir.ui.view">
+        <field name="name">l10n_id.pph21.ter.bracket.form</field>
+        <field name="model">l10n_id.pph21.ter.bracket</field>
+        <field name="arch" type="xml">
+            <form string="PPh21 TER Placeholder Bracket">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="company_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="effective_date_from"/>
+                            <field name="effective_date_to"/>
+                            <field name="income_from"/>
+                            <field name="income_to"/>
+                            <field name="placeholder_rate"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note" placeholder="Keep legal references and replacement notes here; these records are placeholders only."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_l10n_id_pph21_progressive_bracket_list" model="ir.ui.view">
+        <field name="name">l10n_id.pph21.progressive.bracket.list</field>
+        <field name="model">l10n_id.pph21.progressive.bracket</field>
+        <field name="arch" type="xml">
+            <list>
+                <field name="sequence"/>
+                <field name="name"/>
+                <field name="company_id"/>
+                <field name="effective_date_from"/>
+                <field name="effective_date_to"/>
+                <field name="annual_income_from"/>
+                <field name="annual_income_to"/>
+                <field name="placeholder_rate"/>
+                <field name="active"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_l10n_id_pph21_progressive_bracket_form" model="ir.ui.view">
+        <field name="name">l10n_id.pph21.progressive.bracket.form</field>
+        <field name="model">l10n_id.pph21.progressive.bracket</field>
+        <field name="arch" type="xml">
+            <form string="PPh21 Progressive Placeholder Bracket">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="sequence"/>
+                            <field name="company_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group>
+                            <field name="effective_date_from"/>
+                            <field name="effective_date_to"/>
+                            <field name="annual_income_from"/>
+                            <field name="annual_income_to"/>
+                            <field name="placeholder_rate"/>
+                        </group>
+                    </group>
+                    <group>
+                        <field name="note" placeholder="Keep legal references and replacement notes here; these records are placeholders only."/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_l10n_id_pph21_ter_brackets" model="ir.actions.act_window">
+        <field name="name">TER Placeholder Tables</field>
+        <field name="res_model">l10n_id.pph21.ter.bracket</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_l10n_id_pph21_progressive_brackets" model="ir.actions.act_window">
+        <field name="name">Progressive Placeholder Brackets</field>
+        <field name="res_model">l10n_id.pph21.progressive.bracket</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_l10n_id_pph21_root" name="Indonesian PPh21" parent="hr.menu_hr_root" sequence="81" groups="hr.group_hr_manager"/>
+    <menuitem id="menu_l10n_id_pph21_ter" name="TER Tables" parent="menu_l10n_id_pph21_root" action="action_l10n_id_pph21_ter_brackets" sequence="10" groups="hr.group_hr_manager"/>
+    <menuitem id="menu_l10n_id_pph21_progressive" name="Progressive Brackets" parent="menu_l10n_id_pph21_root" action="action_l10n_id_pph21_progressive_brackets" sequence="20" groups="hr.group_hr_manager"/>
+</odoo>
