@@ -1,5 +1,5 @@
 {
-    'name': 'Indonesia PPh 21 - TER & Progressive',
+    'name': 'AKSA - Indonesia PPh 21 - TER & Progressive',
     'version': '19.0.1.0.0',
     'category': 'Human Resources/Payroll',
     'summary': 'PPh 21 Calculation with TER (Tarif Efektif Rata-rata) and Progressive Tax Rates for Indonesia',
@@ -22,7 +22,7 @@ References:
 - PMK 168 Tahun 2023
 - UU HPP (Harmonisasi Peraturan Perpajakan)
     """,
-    'author': 'Shafil Ahaf',
+    'author': 'ShafilahAF',
     'website': 'https://github.com/shafilahaf/odoo19-payroll-indonesia',
     'license': 'LGPL-3',
     'depends': [

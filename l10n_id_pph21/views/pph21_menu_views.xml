@@ -4,7 +4,7 @@
     <!-- Main PPh 21 Menu under Payroll -->
     <menuitem id="menu_pph21_root"
               name="PPh 21"
-              parent="hr.menu_hr_root"
+              parent="hr_work_entry_enterprise.menu_hr_payroll_root"
               sequence="50"/>
 
     <!-- Configuration submenu -->
