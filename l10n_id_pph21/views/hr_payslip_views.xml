@@ -13,6 +13,7 @@
                         <group string="Calculation Details">
                             <field name="pph21_method_used"/>
                             <field name="pph21_is_final_period"/>
+                            <field name="pph21_config_source"/>
                             <field name="pph21_ter_rate_applied"
                                    invisible="pph21_method_used != 'ter'"/>
                         </group>

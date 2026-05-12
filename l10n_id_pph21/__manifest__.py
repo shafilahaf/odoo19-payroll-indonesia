@@ -40,6 +40,7 @@ References:
         'views/pph21_ter_rate_views.xml',
         'views/pph21_progressive_rate_views.xml',
         'views/hr_employee_views.xml',
+        'views/hr_version_views.xml',
         'views/hr_payslip_views.xml',
         'views/pph21_menu_views.xml',
     ],
